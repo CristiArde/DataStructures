@@ -1,0 +1,4 @@
+﻿  Stack.cpp
+c:\users\cardel6\documents\python scripts\cplusplus_datastructures\stack\stack.cpp(24): warning C4551: function call missing argument list
+  Stack.vcxproj -> C:\Users\cardel6\Documents\Python Scripts\CPlusPlus_DataStructures\Stack\Debug\Stack.exe
+  Stack.vcxproj -> C:\Users\cardel6\Documents\Python Scripts\CPlusPlus_DataStructures\Stack\Debug\Stack.pdb (Partial PDB)
