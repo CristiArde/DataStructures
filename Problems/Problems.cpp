@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <unordered_map>
 using namespace std;
 
@@ -14,6 +15,13 @@ void insertionSort(int arr[], int size) {
 		}
 		arr[j + 1] = key;
 	}
+}
+
+void swap(int *a, int *b) {
+	int * temp;
+	temp = a;
+	a = b;
+	b = temp;
 }
 
 
@@ -72,10 +80,133 @@ void mergeTwoSortedArrays(int arr1[], int arr2[], int size1, int size2) {
 	cout << endl;
 }
 
+void arrangePositiveAndNegativeInArray(int arr[], int size) {
+	int j = 0;
+	for (int i = 0; i < size; i++) {
+		if (arr[i] < 0) {
+			swap(arr[i], arr[j]);
+				j++;
+		}
+	}
+	cout << "New sorted array negative left positive right : ";
+	for (int i = 0; i < size; i++)
+		cout << arr[i] << "; ";
+
+	cout << endl;
+}
+// repeats the same int until reacheas 0 ex -> 3 = 333222111 332211 321
+void printPat(int n) {
+	int j = n;
+	int k = n;
+	LOOP:while (n>0) {
+		for (int i = j; i > 0; i--) {
+			cout << n <<" ";
+		}
+		n--;
+	}
+	n = k;
+	j--;
+	if (j == 0) {
+		cout << "$";
+		return;
+	}
+	cout << "$";
+	goto LOOP;
+		 
+		 
+}
+
+int printPal(int arr[], int size) {
+	string pal;
+	bool isPal = true;
+	int j, k;
+	for (int i = 0; i < size; i++) {
+		pal = to_string(arr[i]);
+		k = 0;
+		j = pal.length()-1;
+		while (j != k) {
+			if (pal.at(k) == pal.at(j)) {
+				j--;
+				k++;
+			} else {
+				isPal = false;
+				break;
+			}
+		}
+	}
+	if (isPal)
+		return 1;
+	else 
+		return 0;
+
+}
+void merge(int *arr, int *leftArr, int sizeLeft, int *rightArr, int sizeRight) {
+	int i, j, k;//i-counter for leftArr, j-counter for rightArr, k counter for original arr
+	i = 0; j = 0; k = 0;
+
+	while (i < sizeLeft && j < sizeRight) {
+		if (leftArr[i] < rightArr[j]){
+			arr[k] = leftArr[i];
+			k++; i++;
+		} else
+			arr[k++] = rightArr[j++];
+	}
+	//fill original with remaining ones
+	while (i < sizeLeft)
+		arr[k++] = leftArr[i++];
+	while (j < sizeRight)
+		arr[k++] = rightArr[j++];
+}
+
+//merges two sorted arrays in a recursive order
+void mergeSort(int *arr, int size) {
+	int i, mid;
+	mid = size / 2;
+	int *leftArr = new int[mid];
+	int *rightArr = new int[size - mid];
+
+	//check if original is big enough
+	if (size < 2) return;
+
+	//populate left and right array
+	for (i = 0; i < mid; i++)
+		leftArr[i] = arr[i];
+
+	for (i = mid; i < size; i++)//start from mid position
+		rightArr[i-mid] = arr[i];
+
+	mergeSort(leftArr, mid);//split the left array
+	mergeSort(rightArr, size - mid);//spit the right array
+	merge(arr, leftArr, mid, rightArr, size - mid);//merge two sorted arrays
+
+}
+
+void ThridLargest(int arr[], int size) {
+	mergeSort(arr, size);
+	cout << arr[2];
+}
+
+bool isBinary(string str) {
+	// Your code here
+	int i = 0;
+	while (i < str.length()) {
+		if (str.at(i) == '1' || str.at(i) == '0')
+			i++;
+		else
+			break;
+	}
+	if (i == str.length())
+		return 1;
+	else
+		return 0;
+
+}
+
 
 void main() {
-
-	int arr1[] = { 9, 4, 9, 6, 7, 4 };
+/*	int arr1[] = { 9, 4, 9, 6, 7, 4 };
+	int negandposArr[] = { -2,-6,2,5,-5,10,-1 };
+	int sizeNegPos = sizeof(negandposArr) / sizeof(negandposArr[0]);
 	int sorted_arr1[] = { 1,2,3,4,5 };
 	int sorted_arr2[] = { 4,5,6,7,8 };
 	int size1 = sizeof(arr1) / sizeof(arr1[0]);
@@ -88,7 +219,20 @@ void main() {
 	firstNonRepeatWithHash(arr1, size1);
 	
 	mergeTwoSortedArrays(sorted_arr1, sorted_arr2, sorted_arr_size1, sorted_arr_size2);
+	cout << endl;
+	arrangePositiveAndNegativeInArray(negandposArr, sizeNegPos);
+	printPat(3);
 
+	int ar[4] = {  222,311, 333,441 };
+	cout << printPal(ar, 4);
+
+	int A[] = { 6,2,1,3,9,10,15,13,12,17 };
+	int numberOfElements = sizeof(A) / sizeof(A[0]);
+	ThridLargest(A, numberOfElements);
+	//printing all elements in the array once its sorted.
+*/
+	cout << isBinary("123");
+	cout << isBinary("109");
 	system("pause");
 
 }
